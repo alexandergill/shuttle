@@ -72,6 +72,9 @@ for n = 2:nt - 1
             u(n+1, nx) = R;
             
         case 'dufort-frankel'
+            % TODO: add dufort-frankel method
+
+        % TODO: add backward differencing, crank-nicolson
 
         otherwise
             error (['Undefined method: ' method])
