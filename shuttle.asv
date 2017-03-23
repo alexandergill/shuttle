@@ -63,8 +63,8 @@ for n = 2:nt - 1
     % Select method.
     switch method
         case 'forward'
-            % LHS boundary condition
-            u(n+1, 1) = (1 - 2 * p) * u(n, 1) + 2 * p * u(n, 2);
+            % LHS Dirichlet boundary condition; need to change this.
+            u(n+1, 1) = (1 - 2);
             % Internal points
             u(n+1, ivec) = (1 - 2 * p) * u(n, ivec) + ...
                 p * (u(n, ivec-1) + u(n, ivec+1));
