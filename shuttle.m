@@ -72,7 +72,6 @@ for n = 2:nt - 1
             u(n+1, nx) = R;
             
         case 'dufort-frankel'
-            % TODO: add dufort-frankel method
             % LHS boundary condition
             u(n+1, 1) = (1 - 2 * p) * u(n-1, 1) + 4 * p * u(n, 2);
             % Internal points
@@ -81,7 +80,6 @@ for n = 2:nt - 1
             % RHS Dirichlet boundary condition
             u(n+1, nx) = R;
 
-        % TODO: add backward differencing, crank-nicolson
         case 'backward'
             % LHS boundary condition
             u(n+1, 1) = (u(n, 1) + 2 * p * u(n+1, 2))/(1 + 2 * p);
@@ -92,7 +90,7 @@ for n = 2:nt - 1
             c(1) = 0;
             d(1) = (u(n, 1) + 2 * p * u(n+1, 2))/(1 + 2 * p);
             a(2:nx-1) = -p;
-            b(2:nx-1) = 1 + 2*p;
+            b(2:nx-1) = 1 + 2 * p;
             c(2:nx-1) = -p;
             d(2:nx-1) = u(n, 2:nx-1);
             a(nx) = 0;
