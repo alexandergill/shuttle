@@ -73,6 +73,13 @@ for n = 2:nt - 1
             
         case 'dufort-frankel'
             % TODO: add dufort-frankel method
+            % LHS boundary condition
+            u(n+1, 1) = (1 - 2 * p) * u(n-1, 1) + 4 * p * u(n, 2);
+            % Internal points
+            u(n+1, ivec) = ((1 - 2 * p) * u(n-1, ivec) + ...
+                2 * p * (u(n, ivec - 1) + u(n, ivec + 1)))/(1 + 2 * p);
+            % RHS Dirichlet boundary condition
+            u(n+1, nx) = R;
 
         % TODO: add backward differencing, crank-nicolson
 
