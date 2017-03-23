@@ -51,7 +51,7 @@ ivec = 2:nx-1;
 % Do this for first two timesteps.
 u([1 2], :) = (60-32)*5/9;
 
-% Select method
+% Select method - allows use of short forms
 switch method
     case 'f'
         method = 'forward';
