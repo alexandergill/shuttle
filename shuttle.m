@@ -51,6 +51,18 @@ ivec = 2:nx-1;
 % Do this for first two timesteps.
 u([1 2], :) = (60-32)*5/9;
 
+% Select method
+switch method
+    case 'f'
+        method = 'forward';
+    case 'd'
+        method = 'dufort-frankel';
+    case 'b'
+        method = 'backward';
+    case 'c'
+        method = 'crank-nicolson';
+end
+
 % Main timestepping loop.
 for n = 2:nt - 1
     
@@ -99,6 +111,28 @@ for n = 2:nt - 1
             % Tri-diagonal matrix
             u(n+1, :) = tdm(a, b, c, d);
 
+        case 'crank-nicolson'
+            % LHS boundary condition
+            u(n+1, 1) = ((1 - p) * u(n, 1) +  ...
+                p * u(n, 2) + p * u(n+1, 2))/(1 + p);
+            % RHS boundary condition
+            u(n+1, nx) = R;
+            % Internal values
+            b(1) = 1;
+            c(1) = 0;
+            d(1) = ((1 - p) * u(n, 1) +  p * u(n, 2) + ...
+                p * u(n+1, 2))/(1+p);
+            a(2:nx-1) = -p/2;
+            b(2:nx-1) = 1 + p;
+            c(2:nx-1) = -p/2;
+            d(2:nx-1) = p/2*u(n,1:nx-2) + ...
+                (1-p)*u(n,2:nx-1) + p/2*u(n,3:nx);
+            a(nx) = 0;
+            b(nx) = 1;
+            d(nx) = R;
+            % Tri-diagonal matrix
+            u(n+1, :) = tdm(a, b, c, d);
+            
         otherwise
             error (['Undefined method: ' method])
             return

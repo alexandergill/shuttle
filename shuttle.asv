@@ -99,6 +99,28 @@ for n = 2:nt - 1
             % Tri-diagonal matrix
             u(n+1, :) = tdm(a, b, c, d);
 
+        case 'crank-nicolson'
+            % LHS boundary condition
+            u(n+1, 1) = ((1 - p) * u(n, 1) +  ...
+                p * u(n, 2) + p * u(n+1, 2))/(1 + p);
+            % RHS boundary condition
+            u(n+1, nx) = R;
+            % Internal values
+            b(1) = 1;
+            c(1) = 0;
+            d(1) = ((1 - p) * u(n, 1) +  p * u(n, 2) +...
+                p * u(n+1, 2))/(1+p);
+    a(2:nx-1) = -p/2;
+    b(2:nx-1) = 1 + p;
+    c(2:nx-1) = -p/2;
+    d(2:nx-1) = p/2*u(n,1:nx-2)...
+        + (1-p)*u(n,2:nx-1) + p/2*u(n,3:nx);
+    a(nx)     = 0;
+    b(nx)     = 1;
+    d(nx)     = R;
+    
+    u(n+1,:) = tdm(a,b,c,d);
+            
         otherwise
             error (['Undefined method: ' method])
             return
