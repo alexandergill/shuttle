@@ -51,11 +51,23 @@ ivec = 2:nx-1;
 % Do this for first two timesteps.
 u([1 2], :) = (60-32)*5/9;
 
+% Select method - allows use of short forms
+switch method
+    case 'f'
+        method = 'forward';
+    case 'd'
+        method = 'dufort-frankel';
+    case 'b'
+        method = 'backward';
+    case 'c'
+        method = 'crank-nicolson';
+end
+
 % Main timestepping loop.
 for n = 2:nt - 1
     
     % LHS boundary condition: inner surface
-    L = 0;
+    % L = 0;
     
     % RHS boundary condition: outer surface
     R = surftemp(t(n+1), timedata, tempdata);
@@ -108,18 +120,18 @@ for n = 2:nt - 1
             % Internal values
             b(1) = 1;
             c(1) = 0;
-            d(1) = ((1 - p) * u(n, 1) +  p * u(n, 2) +...
+            d(1) = ((1 - p) * u(n, 1) +  p * u(n, 2) + ...
                 p * u(n+1, 2))/(1+p);
-    a(2:nx-1) = -p/2;
-    b(2:nx-1) = 1 + p;
-    c(2:nx-1) = -p/2;
-    d(2:nx-1) = p/2*u(n,1:nx-2)...
-        + (1-p)*u(n,2:nx-1) + p/2*u(n,3:nx);
-    a(nx)     = 0;
-    b(nx)     = 1;
-    d(nx)     = R;
-    
-    u(n+1,:) = tdm(a,b,c,d);
+            a(2:nx-1) = -p/2;
+            b(2:nx-1) = 1 + p;
+            c(2:nx-1) = -p/2;
+            d(2:nx-1) = p/2*u(n,1:nx-2) + ...
+                (1-p)*u(n,2:nx-1) + p/2*u(n,3:nx);
+            a(nx) = 0;
+            b(nx) = 1;
+            d(nx) = R;
+            % Tri-diagonal matrix
+            u(n+1, :) = tdm(a, b, c, d);
             
         otherwise
             error (['Undefined method: ' method])
