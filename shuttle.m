@@ -82,6 +82,24 @@ for n = 2:nt - 1
             u(n+1, nx) = R;
 
         % TODO: add backward differencing, crank-nicolson
+        case 'backward'
+            % LHS boundary condition
+            u(n+1, 1) = (u(n, 1) + 2 * p * u(n+1, 2))/(1 + 2 * p);
+            % RHS Dirichlet boundary condition
+            u(n+1, nx) = R;
+            % Internal values
+            b(1) = 1;
+            c(1) = 0;
+            d(1) = (u(n, 1) + 2 * p * u(n+1, 2))/(1 + 2 * p);
+            a(2:nx-1) = -p;
+            b(2:nx-1) = 1 + 2*p;
+            c(2:nx-1) = -p;
+            d(2:nx-1) = u(n, 2:nx-1);
+            a(nx) = 0;
+            b(nx) = 1;
+            d(nx) = R;
+            % Tri-diagonal matrix
+            u(n+1, :) = tdm(a, b, c, d);
 
         otherwise
             error (['Undefined method: ' method])
