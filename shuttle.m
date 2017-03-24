@@ -94,7 +94,7 @@ for n = 2:nt - 1
 
         case 'backward'
             % LHS boundary condition
-            u(n+1, 1) = (u(n, 1) + 2 * p * u(n+1, 2))/(1 + 2 * p);
+            % u(n+1, 1) = (u(n, 1) + 2 * p * u(n+1, 2))/(1 + 2 * p);
             % RHS Dirichlet boundary condition
             u(n+1, nx) = R;
             % Internal values
@@ -114,15 +114,14 @@ for n = 2:nt - 1
 
         case 'crank-nicolson'
             % LHS boundary condition
-            u(n+1, 1) = (p * u(n+1, 2) + p * u(n, 2))/(1 + p);    
+            % u(n+1, 1) = (p * u(n+1, 2) + p * u(n, 2))/(1 + p);    
             % RHS boundary condition
             u(n+1, nx) = R;
             % Internal values
             % % Adapted from Modelling Techniques II Lecture 5
             b(1) = 1;
             c(1) = 0;
-            d(1) = ((1 - p) * u(n, 1) +  p * u(n, 2) + ...
-                p * u(n+1, 2))/(1+p);
+            d(1) = (1 - p) * u(n, 1) +  p * u(n, 2);
             a(2:nx-1) = -p/2;
             b(2:nx-1) = 1 + p;
             c(2:nx-1) = -p/2;
