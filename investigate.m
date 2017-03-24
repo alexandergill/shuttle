@@ -10,7 +10,11 @@ for nt = 41:20:1001
     uf(i) = u(end, 1); 
     [~, ~, u] = shuttle(tmax, nt, thick, nx, 'backward', false); 
     ub(i) = u(end, 1); 
+    [~, ~, u] = shuttle(tmax, nt, thick, nx, 'c', false);
+    uc(i) = u(end, 1);
+    [~, ~, u] = shuttle(tmax, nt, thick, nx, 'd', false);
+    ud(i) = u(end, 1);
 end 
-plot(dt, [uf; ub]) 
+plot(dt, [uf; ub; uc; ud]) 
 ylim([0 200]) 
-legend ('Forward', 'Backward')
+legend ('Forward', 'Backward', 'Crank-nicolson', 'Dufort-frankel')
