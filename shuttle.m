@@ -85,7 +85,7 @@ for n = 2:nt - 1
             
         case 'dufort-frankel'
             % LHS boundary condition
-            u(n+1, 1) = (1 - 2 * p) * u(n-1, 1) + 4 * p * u(n, 2);
+            u(n+1, 1) = (1 - 2 * p) * u(n, 1) + 2 * p * u(n, 2);
             % Internal points
             u(n+1, ivec) = ((1 - 2 * p) * u(n-1, ivec) + ...
                 2 * p * (u(n, ivec - 1) + u(n, ivec + 1)))/(1 + 2 * p);
@@ -98,6 +98,7 @@ for n = 2:nt - 1
             % RHS Dirichlet boundary condition
             u(n+1, nx) = R;
             % Internal values
+            % % Adapted from Modelling Techniques II Lecture 5
             b(1) = 1;
             c(1) = 0;
             d(1) = (u(n, 1) + 2 * p * u(n+1, 2))/(1 + 2 * p);
@@ -118,6 +119,7 @@ for n = 2:nt - 1
             % RHS boundary condition
             u(n+1, nx) = R;
             % Internal values
+            % % Adapted from Modelling Techniques II Lecture 5
             b(1) = 1;
             c(1) = 0;
             d(1) = ((1 - p) * u(n, 1) +  p * u(n, 2) + ...
