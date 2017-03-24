@@ -114,7 +114,9 @@ for n = 2:nt - 1
 
         case 'crank-nicolson'
             % LHS boundary condition
-            u(n+1, 1) = (p * u(n+1, 2) + p * u(n, 2))/(1 + p);    
+            %u(n+1, 1) = ((1 - p) * u(n, 1) +  ...
+            %    p * u(n, 2) + p * u(n+1, 2))/(1 + p);
+            u(n+1, 1) = p * u(n+1, 2;    
             % RHS boundary condition
             u(n+1, nx) = R;
             % Internal values
