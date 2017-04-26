@@ -1,4 +1,4 @@
-function [x t u] = shuttle(tmax, nt, xmax, nx, method, doplot)
+function [x, t, u] = shuttle(tmax, nt, xmax, nx, method, doplot)
 % Function for modelling temperature in a space shuttle tile
 % D N Johnston  23/1/17
 %

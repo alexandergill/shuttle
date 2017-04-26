@@ -5,7 +5,7 @@
 % http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.26.1075&rep=rep1&type=pdf
 %
 % D N Johnston 23/01/17
-
+% Modified with permission by Alexander Gill.
 name = 'temp597';
 img=imread([name '.jpg']);
 
