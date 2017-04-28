@@ -6,13 +6,14 @@
 %
 % D N Johnston 23/01/17
 % Modified with permission by Alexander Gill.
+%
+
 name = 'temp597';
 img=imread([name '.jpg']);
 
 figure (4);
 image(img);
 hold on
-% You can adapt the following code to enter data interactively or automatically.
 
 timedata = [];
 tempdata = [];
@@ -31,7 +32,7 @@ for i = 1:2 % take two points
 end
 
 % ignore the order the user clicked in
-axes = sortrows(axes, 1)
+axes = sortrows(axes, 1);
 
 x0 = axes(1,1);
 xmax = axes(2,1);

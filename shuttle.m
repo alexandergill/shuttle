@@ -24,14 +24,7 @@ thermcon = 0.141; % W/(m K)
 density  = 351; % 22 lb/ft^3
 specheat = 1257; % ~0.3 Btu/lb/F at 500F
 
-
-% Some crude data to get you started:
-% timedata = [0  60 250 500  1000 1250 1500 1750 2000 4000];
-% tempdata = [60 60 800 1500 1400 1000 830  0    60   60];
-
-% Better to load surface temperature data from file.
-% (you need to have modified and run plottemp.m to create the file first.)
-% Uncomment the following line.
+% load the data file. 
 load temp597.mat
 
 % Initialise everything.
@@ -65,9 +58,6 @@ end
 
 % Main timestepping loop.
 for n = 2:nt - 1
-    
-    % LHS boundary condition: inner surface (unused)
-    % L = 0;
     
     % RHS boundary condition: outer surface
     R = surftemp(t(n+1), timedata, tempdata);
@@ -136,7 +126,7 @@ for n = 2:nt - 1
 end
 
 if doplot
-    % Surface plot - you need to add labels etc.
+    % Surface plot 
     figure (1)
     surf(x, t, u);
     % axis labels

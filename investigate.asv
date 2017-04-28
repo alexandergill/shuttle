@@ -1,7 +1,7 @@
 % Script to investigate the effectiveness of the `shuttle` function
-% with different parameters by brute-force. 
+% with different parameters
 
-% This did not work and was not a very good idea. 
+% This did not work and was not a very good idea. It has been included
 
 i=0; 
 nx = 11:10:41; 

@@ -1,6 +1,6 @@
 % function to test the `shuttle` function with sane defaults. Saves
 % typing in the same parameters every time.
-% Created by Alexander Gill
+
 function test(method)
 
 if nargin == 0

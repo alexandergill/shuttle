@@ -30,3 +30,4 @@ surf(xTime);
 xlabel('nx');
 ylabel('nt');
 zlabel('execution time / s');
+

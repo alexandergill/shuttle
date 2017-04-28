@@ -4,6 +4,9 @@ function [ thickness ] = minThick( maxTemp, plot )
 %   uses the shooting method to find a tile thickness to deliver
 %   a desired maximum interior temperature
 
+% get start time
+tic;
+
 % tollerance below maxTemp, in Celcius
 % avoids ridiculously thick tiles
 tol = 5;
@@ -11,8 +14,8 @@ tol = 5;
 % everything else
 nx = 21; 
 tmax = 4000; 
-nt = 501;
-method = 'forward';
+nt = 401;
+method = 'c';
 
 % first arbitrary guess
 g(1,1) = 0.05;
@@ -26,6 +29,12 @@ g(2,2) = max(u(:,1));
 
 n = 3;
 while g(2, end) > maxTemp || g(2, end) < (maxTemp - tol)
+    % crude method to avoid endless loops
+    if toc > 20
+        disp('computation time exceded');
+        break
+    end
+    
     % y = mx + c
     % work out the gradient of the last two guesses
     m = (g(2, n-2) - g(2, n-1)) / (g(1,n-2) - g(1,n-1));
@@ -41,7 +50,6 @@ while g(2, end) > maxTemp || g(2, end) < (maxTemp - tol)
     
     n = n + 1;
 end
-
 thickness = g(1, end);
 
 % plot if asked to
